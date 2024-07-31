@@ -1,13 +1,6 @@
 # sage_bbb
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Pylint](https://img.shields.io/badge/pylint-9-brightgreen)
-[![codecov](https://codecov.io/gh/sageteamorg/python-sage-bbb/graph/badge.svg?token=I10LGK910X)](https://codecov.io/gh/sageteamorg/python-sage-bbb)
-
-![PyPI release](https://img.shields.io/pypi/v/python-sage-bbb "python-sage-bbb")
-![Supported Python versions](https://img.shields.io/pypi/pyversions/python-sage-bbb "python-sage-bbb")
-![Documentation](https://img.shields.io/readthedocs/python-sage-bbb "python-sage-bbb")
-![License](https://img.shields.io/badge/license-MIT-red)
-![GitHub last commit](https://img.shields.io/github/last-commit/sageteamorg/python-sage-bbb)
 
 ## Table of Contents
 - [sage\_bbb](#sage_bbb)
