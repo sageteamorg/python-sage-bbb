@@ -1,3 +1,5 @@
+.. _conf_tools:
+
 Obtaining the Security Salt
 ===========================
 

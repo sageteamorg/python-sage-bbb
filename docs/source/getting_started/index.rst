@@ -5,8 +5,8 @@ Getting Started
 
 .. toctree::
    :maxdepth: 2
-   :caption: Getting Started
+   :caption: Learn how to integrate and utilize the `sage_bbb` package effectively
 
    introduction
-   features
    installation
+   features

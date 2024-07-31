@@ -1,6 +1,9 @@
 Installation Guide
 ==================
 
+.. note:: 
+   To work with ``python-sage-bbb``, ensure that BigBlueButton (BBB) is set up on a server and that you have obtained your security salt key. Refer to the :ref:`conf_tools` for setting up BBB.
+
 Step 1: Create a Virtual Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
