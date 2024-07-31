@@ -1,0 +1,87 @@
+[tool.poetry]
+name = "python-sage-bbb"
+version = "0.1.0"
+description = "A Python client library for interacting with BigBlueButton API, enabling the creation and management of online meetings, recordings, and configurations."
+authors = ["MohmdFo <mohammad.fotouhi80@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+keywords = ["python", "meet", "BigBlueButton"]
+
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Developers",
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.11.0"
+isort = "^5.13.2"
+black = "^24.4.2"
+pytest = "^8.3.2"
+flake8 = "^7.1.0"
+tox = "^4.16.0"
+coverage = "^7.6.0"
+pre-commit = "^3.8.0"
+sphinx = "^7.2.0"
+pylint = "^3.2.6"
+pytest-cov = "^5.0.0"
+sphinx-rtd-theme = "^2.0.0"
+commitizen = "^3.28.0"
+docformatter = "^1.7.5"
+types-setuptools = "^71.1.0.20240726"
+codecov = "^2.1.13"
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+exclude = '''
+/(
+    \.git
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | build
+    | dist
+    | docs
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+known_first_party = ["sage_bbb"]
+skip = ["docs"]
+
+[tool.mypy]
+mypy_path = "stubs"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+explicit_package_bases = true
+exclude = '''
+^docs/source/conf.py|
+^build/|
+^tests/|
+^stubs/
+'''
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
+testpaths = ["tests"]
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
