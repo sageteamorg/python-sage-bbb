@@ -1,4 +1,7 @@
 from typing import Any, Dict, Optional
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Recordings:
@@ -45,7 +48,9 @@ class Recordings:
         params = {"meetingID": meeting_id}
         if metadata:
             params.update(metadata)
+        logger.info("Retrieving recordings for meeting ID: %s with params: %s", meeting_id, params)
         response = self.client.send_request("getRecordings", params)
+        logger.info("Recordings retrieved successfully for meeting ID: %s", meeting_id)
         return self.client.parse_response(response.content)
 
     def publish_recording(self, recording_id: str, publish: bool) -> Dict[str, Any]:
@@ -68,7 +73,9 @@ class Recordings:
             "recordID": recording_id,
             "publish": "true" if publish else "false",
         }
+        logger.info("Setting publish status for recording ID: %s to %s", recording_id, publish)
         response = self.client.send_request("publishRecordings", params)
+        logger.info("Publish status set successfully for recording ID: %s", recording_id)
         return self.client.parse_response(response.content)
 
     def delete_recording(self, recording_id: str) -> Dict[str, Any]:
@@ -89,7 +96,9 @@ class Recordings:
         params = {
             "recordID": recording_id,
         }
+        logger.info("Deleting recording ID: %s", recording_id)
         response = self.client.send_request("deleteRecordings", params)
+        logger.info("Recording ID: %s deleted successfully.", recording_id)
         return self.client.parse_response(response.content)
 
     def update_recordings(
@@ -115,7 +124,9 @@ class Recordings:
         params = {"meetingID": meeting_id}
         if metadata:
             params.update(metadata)
+        logger.info("Updating recordings for meeting ID: %s with metadata: %s", meeting_id, metadata)
         response = self.client.send_request("updateRecordings", params)
+        logger.info("Recordings updated successfully for meeting ID: %s", meeting_id)
         return self.client.parse_response(response.content)
 
     def get_recording_text_tracks(self, record_id: str) -> Dict[str, Any]:
@@ -138,7 +149,9 @@ class Recordings:
         params = {
             "recordID": record_id,
         }
+        logger.info("Retrieving text tracks for recording ID: %s", record_id)
         response = self.client.send_request("getRecordingTextTracks", params)
+        logger.info("Text tracks retrieved successfully for recording ID: %s", record_id)
         return self.client.parse_response(response.content)
 
     def put_recording_text_track(
@@ -165,7 +178,9 @@ class Recordings:
             "recordID": record_id,
         }
         files = {"file": track_file}
+        logger.info("Uploading text track for recording ID: %s", record_id)
         response = self.client.send_request(
             "putRecordingTextTrack", params, files=files
         )
+        logger.info("Text track uploaded successfully for recording ID: %s", record_id)
         return self.client.parse_response(response.content)

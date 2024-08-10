@@ -1,7 +1,10 @@
 from typing import Any, Dict, Optional
+import logging
 
 from sage_bbb.helpers import Meeting
 from sage_bbb.services.factory import MeetingFactory
+
+logger = logging.getLogger(__name__)
 
 
 class Meetings:
@@ -40,7 +43,9 @@ class Meetings:
             print(filtered_meetings)
         """
         params = metadata if metadata else {}
+        logger.info("Retrieving meetings with params: %s", params)
         response = self.client.send_request("getMeetings", params)
+        logger.info("Meetings retrieved successfully.")
         return self.client.parse_response(response.content)
 
     def create_meeting(
@@ -82,8 +87,10 @@ class Meetings:
             "moderatorPW": moderator_pw,
             **kwargs,
         }
+        logger.info("Creating meeting with params: %s", params)
         response = self.client.send_request("create", params)
         response_dict = self.client.parse_response(response.content)
+        logger.info("Meeting created successfully with ID: %s", meeting_id)
         return MeetingFactory.create_meeting(response_dict)
 
     def join_meeting(
@@ -115,7 +122,9 @@ class Meetings:
             "password": password,
             **kwargs,
         }
+        logger.info("Joining meeting ID: %s with full name: %s", meeting.meeting_id, full_name)
         join_url = self.client.url_builder.build_url("join", params)
+        logger.info("Join URL generated: %s", join_url)
         return join_url
 
     def end_meeting(self, meeting: Meeting) -> Dict[str, Any]:
@@ -136,7 +145,9 @@ class Meetings:
             "meetingID": meeting.meeting_id,
             "password": meeting.moderator_pw,
         }
+        logger.info("Ending meeting ID: %s", meeting.meeting_id)
         response = self.client.send_request("end", params)
+        logger.info("Meeting ID %s ended successfully.", meeting.meeting_id)
         return self.client.parse_response(response.content)
 
     def is_meeting_running(self, meeting: Meeting) -> Dict[str, Any]:
@@ -156,7 +167,9 @@ class Meetings:
         params = {
             "meetingID": meeting.meeting_id,
         }
+        logger.info("Checking if meeting ID: %s is running.", meeting.meeting_id)
         response = self.client.send_request("isMeetingRunning", params)
+        logger.info("Meeting running status retrieved for meeting ID: %s", meeting.meeting_id)
         return self.client.parse_response(response.content)
 
     def get_meeting_info(self, meeting: Meeting) -> Dict[str, Any]:
@@ -176,5 +189,7 @@ class Meetings:
         params = {
             "meetingID": meeting.meeting_id,
         }
+        logger.info("Retrieving information for meeting ID: %s", meeting.meeting_id)
         response = self.client.send_request("getMeetingInfo", params)
+        logger.info("Meeting information retrieved for meeting ID: %s", meeting.meeting_id)
         return self.client.parse_response(response.content)
