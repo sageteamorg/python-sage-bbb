@@ -37,32 +37,8 @@ pytest-cov = "^5.0.0"
 sphinx-rtd-theme = "^2.0.0"
 commitizen = "^3.28.0"
 docformatter = "^1.7.5"
-types-setuptools = "^71.1.0.20240726"
 codecov = "^2.1.13"
-
-[tool.black]
-line-length = 88
-target-version = ['py38']
-exclude = '''
-/(
-    \.git
-    | \.hg
-    | \.mypy_cache
-    | \.tox
-    | \.venv
-    | _build
-    | buck-out
-    | build
-    | dist
-    | docs
-)/
-'''
-
-[tool.isort]
-profile = "black"
-line_length = 88
-known_first_party = ["sage_bbb"]
-skip = ["docs"]
+ruff = "^0.5.7"
 
 [tool.mypy]
 mypy_path = "stubs"
@@ -74,16 +50,105 @@ exclude = '''
 ^docs/source/conf.py|
 ^build/|
 ^tests/|
-^stubs/
+^stubs/|
+^kernel/
 '''
+
+[tool.black]
+line-length = 88
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | build
+  | dist
+  | migrations
+  | venv
+  | env
+  | __pycache__
+  | static
+  | media
+  | node_modules
+  | env
+  | kernel
+  | \.mypy_cache
+  | \.pytest_cache
+  | .*\.egg-info
+)/
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip = [
+    "venv",
+    ".venv",
+    "build",
+    "dist",
+    ".git",
+    "__pycache__",
+    "*.egg-info",
+    ".mypy_cache",
+    ".pytest_cache",
+    "migrations",
+    "static",
+    "media",
+    "node_modules",
+    "env",
+    "kernel"
+]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
 version = "0.1.0"
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers"
-testpaths = ["tests"]
+[tool.commitizen.settings]
+increment_types = ["feat", "fix"]
+
+[tool.pylint]
+disable = [
+    "C0114",  # Missing module docstring
+    "C0115",  # Missing class docstring
+    "C0116",  # Missing function or method docstring
+    "E1101",  # Instance of 'Foo' has no 'bar' member (Django dynamic attributes)
+    "W0212",  # Access to a protected member _foo of a client class
+    "C0330",  # Wrong hanging indentation before block (conflicts with Black)
+]
+max-line-length = 88
+ignore = [
+    "migrations/*",
+    "venv/*",
+    "build/*",
+    "dist/*",
+    ".git/*",
+    "__pycache__/*",
+    "*.egg-info/*",
+    ".mypy_cache/*",
+    ".pytest_cache/*"
+]
+load-plugins = [
+    "pylint_django",
+    "pylint.extensions.docparams",
+]
+django-settings-module = "myproject.settings"
+good-names = [
+    "qs",  # QuerySet abbreviation
+    "pk",  # Primary key abbreviation
+    "id",  # Identifier
+]
+suggestion-mode = true
+const-rgx = "([A-Z_][A-Z0-9_]*)|(__.*__)"
+attr-rgx = "[a-z_][a-z0-9_]{2,30}$"
+variable-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-rgx = "[a-z_][a-z0-9_]{2,30}$"
+argument-name-hint = [
+    "cls",  # class method first argument
+    "self",  # instance method first argument
+]
+method-rgx = "[a-z_][a-z0-9_]{2,30}$"
+function-rgx = "[a-z_][a-z0-9_]{2,30}$"
+class-rgx = "[A-Z_][a-zA-Z0-9]+$"
+module-rgx = "(([a-z_][a-z0-9_]*)|(__.*__))$"
 
 
 [build-system]

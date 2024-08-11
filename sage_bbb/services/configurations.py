@@ -1,6 +1,8 @@
 from typing import Any, Dict
-
 import requests
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Configurations:
@@ -33,15 +35,17 @@ class Configurations:
             print(default_config)
         """
         try:
+            logger.info("Attempting to retrieve the default configuration XML.")
             response = self.client.send_request("getDefaultConfigXML")
+            logger.info("Successfully retrieved the default configuration XML.")
             return self.client.parse_response(response.content)
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 404:
-                print("Endpoint not found. Please check the API URL and endpoint.")
+                logger.error("Endpoint not found. Please check the API URL and endpoint.")
             else:
-                print(f"An HTTP error occurred: {e}")
+                logger.error(f"An HTTP error occurred: {e}")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"An error occurred while retrieving the default configuration XML: {e}")
         return {}
 
     def set_config_xml(self, config_xml: str) -> Dict[str, Any]:
@@ -60,17 +64,19 @@ class Configurations:
             print(set_config_response)
         """
         try:
+            logger.info("Attempting to set the configuration XML.")
             response = self.client.send_request(
                 "setConfigXML",
                 data=config_xml,
                 headers={"Content-Type": "application/xml"},
             )
+            logger.info("Successfully set the configuration XML.")
             return self.client.parse_response(response.content)
         except requests.exceptions.HTTPError as e:
             if e.response.status_code == 404:
-                print("Endpoint not found. Please check the API URL and endpoint.")
+                logger.error("Endpoint not found. Please check the API URL and endpoint.")
             else:
-                print(f"An HTTP error occurred: {e}")
+                logger.error(f"An HTTP error occurred: {e}")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"An error occurred while setting the configuration XML: {e}")
         return {}
