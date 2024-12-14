@@ -43,9 +43,9 @@ To join a meeting using the ``python-sage-bbb`` package, follow these steps:
    .. code-block:: python
 
       join_url_moderator = bbb_client.meetings.join_meeting(
-          meeting=new_meeting,
+          meeting_id="random-9887584",
           full_name="Moderator",
-          password=new_meeting.moderator_pw
+          password="mp"
       )
       print(f"Join URL (Moderator): {join_url_moderator}")
 
@@ -56,9 +56,9 @@ To join a meeting using the ``python-sage-bbb`` package, follow these steps:
    .. code-block:: python
 
       join_url_attendee = bbb_client.meetings.join_meeting(
-          meeting=new_meeting,
+          meeting_id="random-9887584",
           full_name="Attendee",
-          password=new_meeting.attendee_pw
+          password="ap"
       )
       print(f"Join URL (Attendee): {join_url_attendee}")
 

@@ -38,11 +38,13 @@ To check if a meeting is currently running using the ``python-sage-bbb`` package
 
 4. **Check if the meeting is running**:
 
-   Use the ``is_meeting_running`` method to check if a meeting is currently running. Provide the meeting instance that you want to check.
+   Use the ``is_meeting_running`` method to check if a meeting is currently running. Provide the meeting ID of the meeting you want to check.
 
    .. code-block:: python
 
-      is_running_response = bbb_client.meetings.is_meeting_running(new_meeting)
+      is_running_response = bbb_client.meetings.is_meeting_running(
+          meeting_id="random-9887584"
+      )
       print(f"Is Meeting Running: {is_running_response}")
 
 This will check if the specified meeting is currently running on your BigBlueButton server.

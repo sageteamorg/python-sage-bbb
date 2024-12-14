@@ -38,11 +38,14 @@ To end a meeting using the ``python-sage-bbb`` package, follow these steps:
 
 4. **End the meeting**:
 
-   Use the ``end_meeting`` method to end the meeting. Provide the meeting instance that you want to end.
+   Use the ``end_meeting`` method to end the meeting. Provide the meeting ID and the moderator password of the meeting you want to end.
 
    .. code-block:: python
 
-      end_meeting_response = bbb_client.meetings.end_meeting(new_meeting)
+      end_meeting_response = bbb_client.meetings.end_meeting(
+          meeting_id="random-9887584",
+          moderator_pw="mp"
+      )
       print(f"End Meeting Response: {end_meeting_response}")
 
 This will end the specified meeting on your BigBlueButton server.

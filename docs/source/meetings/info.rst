@@ -38,11 +38,13 @@ To retrieve detailed information about a meeting using the ``python-sage-bbb`` p
 
 4. **Retrieve detailed information about the meeting**:
 
-   Use the ``get_meeting_info`` method to retrieve detailed information about a specific meeting. Provide the meeting instance that you want to get information about.
+   Use the ``get_meeting_info`` method to retrieve detailed information about a specific meeting. Provide the meeting ID of the meeting you want to get information about.
 
    .. code-block:: python
 
-      meeting_info = bbb_client.meetings.get_meeting_info(new_meeting)
+      meeting_info = bbb_client.meetings.get_meeting_info(
+          meeting_id="random-9887584"
+      )
       print(f"Meeting Info: {meeting_info}")
 
 This will retrieve detailed information about the specified meeting on your BigBlueButton server.

@@ -125,6 +125,26 @@ print(f"Connection Status: {connection_status}")
     print(f"New Meeting: {new_meeting}")
     ```
 
+5. **Join the meeting as a moderator**:
+    ```python
+    join_url_moderator = bbb_client.meetings.join_meeting(
+        meeting_id="random-9887584",
+        full_name="Moderator",
+        password="mp"
+    )
+    print(f"Join URL (Moderator): {join_url_moderator}")
+    ```
+
+6. **Join the meeting as an attendee**:
+    ```python
+    join_url_attendee = bbb_client.meetings.join_meeting(
+        meeting_id="random-9887584",
+        full_name="Attendee",
+        password="ap"
+    )
+    print(f"Join URL (Attendee): {join_url_attendee}")
+    ```
+
 ## Package Structure
 
 - **helpers**: Contains the `Meeting` dataclass for managing meeting-related data.
