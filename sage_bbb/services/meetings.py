@@ -53,6 +53,7 @@ class Meetings:
         meeting_id: str,
         attendee_pw: str,
         moderator_pw: str,
+        client_settings_override: str = None,
         **kwargs: Any,
     ) -> "Meeting":
         """
@@ -63,6 +64,7 @@ class Meetings:
             meeting_id (str): The unique identifier for the meeting.
             attendee_pw (str): The password for attendees.
             moderator_pw (str): The password for moderators.
+            client_settings_override(str): Overrides the html5-client settings.yml
             **kwargs: Additional optional parameters for the meeting.
 
         Returns:
@@ -86,8 +88,23 @@ class Meetings:
             "moderatorPW": moderator_pw,
             **kwargs,
         }
-        logger.info("Creating meeting with params: %s", params)
-        response = self.client.send_request("create", params)
+        if client_settings_override:
+            headers = {"Content-Type": "application/xml"}
+            data = (
+                '<modules>\n<module name="clientSettingsOverride">\n'
+                + client_settings_override
+                + "\n</module>\n</modules>"
+            )
+            logger.info(
+                "Creating meeting with params: %s; headers: %s; data: %s",
+                params,
+                headers,
+                data,
+            )
+            response = self.client.send_request("create", params, data, headers)
+        else:
+            logger.info("Creating meeting with params: %s", params)
+            response = self.client.send_request("create", params)
         response_dict = self.client.parse_response(response.content)
         logger.info("Meeting created successfully with ID: %s", meeting_id)
         return MeetingFactory.create_meeting(response_dict)
